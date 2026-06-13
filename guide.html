@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment utiliser le Pic à Pente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Styles spécifiques au visualiseur interactif -->
+    <style>
+        .helix-viewer {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        /* Zone d'affichage 3D */
+        .viewer-display {
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 16px;
+            aspect-ratio: 3 / 2;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .layer.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        /* Panneau de contrôle */
+        .viewer-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .phase-card {
+            background: #ffffff;
+            border: 2px solid #eaeaea;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase-card:hover {
+            background: #fcfcfc;
+            border-color: #dcdcdc;
+        }
+
+        /* Utilisation de la couleur rouge de ta charte */
+        .phase-card.active {
+            border-color: var(--red, #C82828);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .phase-card h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #111;
+        }
+
+        .phase-card p {
+            margin: 8px 0 0;
+            font-size: 0.9rem;
+            color: #555;
+            display: none;
+        }
+
+        .phase-card.active p {
+            display: block;
+        }
+
+        .phase-number {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-weight: 700;
+            opacity: 0.08;
+            font-size: 1.8rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Bouton Simulation */
+        .sim-toggle {
+            margin-top: 15px;
+            background: #111;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sim-toggle:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .sim-toggle.active {
+            background: var(--red, #C82828);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .helix-viewer {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Pic <span class="text-red">à </span>Pente</a>
+            <div class="menu-toggle">☰</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="guide.html" class="text-red">Comment l'utiliser</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- En-tête de la page -->
+        <section class="section bg-grey text-center">
+            <div class="container">
+                <h1>Le Pic à Pente en action</h1>
+                <!-- Remplacement de coulage par pose -->
+                <p style="max-width: 600px; margin: 0 auto;">Découvrez étape par étape comment cet outil simplifie la pose de vos chapes et sécurise l'écoulement des eaux.</p>
+            </div>
+        </section>
+
+        <!-- Section du Visualiseur -->
+        <section class="section">
+            <div class="container">
+                
+                <div class="helix-viewer">
+                    <!-- Zone d'affichage de la maquette -->
+                    <div class="viewer-display">
+                        <img src="images/etape0.png" id="img-0" class="layer active" alt="Plaque d'isolant thermique au sol">
+                        <img src="images/etape1.png" id="img-1" class="layer" alt="Isolant avec Pics à Pente vissés">
+                        <img src="images/etape2.png" id="img-2" class="layer" alt="Mise en place de la trame de chape">
+                        <!-- Remplacement de coulée par tirée -->
+                        <img src="images/etape3.png" id="img-3" class="layer" alt="Chape tirée et complètement finie">
+                        <img src="images/etape4.png" id="img-4" class="layer" alt="Pose du revêtement final type carrelage">
+                        
+                        <!-- La vidéo WebGL/Simulation par dessus -->
+                        <video src="images/simulation.mp4" id="sim-video" class="layer" muted loop playsinline></video>
+                    </div>
+
+                    <!-- Menu interactif des étapes -->
+                    <div class="viewer-controls">
+                        <div class="phase-card active" data-target="0">
+                            <span class="phase-number">00</span>
+                            <h4>L'isolation au sol</h4>
+                            <p>Mise en place des plaques d'isolant thermique. C'est votre base de travail prête à être équipée.</p>
+                        </div>
+
+                        <div class="phase-card" data-target="1">
+                            <span class="phase-number">01</span>
+                            <h4>Implantation des Pics à Pente</h4>
+                            <p>Le Pic à Pente se visse directement et solidement dans l'isolant. Vous ajustez la tête micrométrique au laser pour trouver votre niveau exact.</p>
+                        </div>
+
+                        <div class="phase-card" data-target="2">
+                            <span class="phase-number">02</span>
+                            <h4>Pose de la trame</h4>
+                            <p>Mise en place de la trame de chape. Les Pics à Pente s'intègrent parfaitement à travers les mailles sans gêner votre préparation.</p>
+                        </div>
+
+                        <div class="phase-card" data-target="3">
+                            <span class="phase-number">03</span>
+                            <!-- Remplacement de Coulage par Tirage -->
+                            <h4>Tirage de la chape</h4>
+                            <p>Vous tirez votre chape sèche en vous calant sur les têtes des Pics à Pente. Ils restent définitivement noyés dans la masse : zéro outil à retirer, aucun trou à reboucher.</p>
+                        </div>
+
+                        <div class="phase-card" data-target="4">
+                            <span class="phase-number">04</span>
+                            <h4>Revêtement final</h4>
+                            <p>Pose du carrelage. Le système est totalement invisible sous le revêtement final et garantit une pente parfaite du premier coup pour l'écoulement des eaux.</p>
+                        </div>
+
+                        <button class="sim-toggle" id="sim-btn">
+                            VOIR L'ÉCOULEMENT
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container grid-3">
+            <div>
+                <h3 style="color: var(--white);">Pic <span class="text-red">à </span>Pente</h3>
+                <p>Outil de nivellement innovant pour la construction.</p>
+            </div>
+            <div>
+                <h4 style="color: var(--white);">Navigation</h4>
+                <ul style="list-style: none;">
+                    <li><a href="guide.html">Mode d'emploi</a></li>
+                    <li><a href="boutique.html">Boutique</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: var(--white);">Contact</h4>
+                <p>contact@picapente.com</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Pic à Pente. Technologie protégée.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    
+    <!-- Script d'interaction du visualiseur -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll('.phase-card');
+            const layers = document.querySelectorAll('.layer');
+            const video = document.getElementById('sim-video');
+            const simBtn = document.getElementById('sim-btn');
+
+            // Gestion du clic sur les cartes
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const targetIndex = card.getAttribute('data-target');
+
+                    // Reset vidéo
+                    video.classList.remove('active');
+                    video.pause();
+                    simBtn.classList.remove('active');
+                    simBtn.innerHTML = `VOIR L'ÉCOULEMENT`;
+
+                    // Switch classes cartes
+                    cards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+
+                    // Switch images
+                    layers.forEach(l => l.classList.remove('active'));
+                    document.getElementById(`img-${targetIndex}`).classList.add('active');
+                });
+            });
+
+            // Gestion de la simulation
+            simBtn.addEventListener('click', () => {
+                if (video.classList.contains('active')) {
+                    video.classList.remove('active');
+                    video.pause();
+                    simBtn.classList.remove('active');
+                    simBtn.innerHTML = `VOIR L'ÉCOULEMENT`;
+                } else {
+                    // Activer la phase 4 automatiquement pour le fond
+                    cards.forEach(c => c.classList.remove('active'));
+                    cards[4].classList.add('active'); // L'index 4 correspond au 5ème élément (étape finale)
+                    
+                    layers.forEach(l => l.classList.remove('active'));
+                    document.getElementById('img-4').classList.add('active');
+
+                    // Lancer la vidéo
+                    video.classList.add('active');
+                    video.play();
+                    simBtn.classList.add('active');
+                    simBtn.innerHTML = `ARRÊTER L'ÉCOULEMENT`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

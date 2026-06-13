@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Pic à Pente | Matériel de nivellement professionnel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques e-commerce BTP */
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+        .tech-list li {
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .tech-list li span:first-child {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* Grille tarifaire discrète */
+        .discount-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .discount-table th, .discount-table td {
+            padding: 0.5rem 0;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .discount-table th {
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        .row-active {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .cart-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        
+        .price-huge {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1;
+            font-family: var(--font-head);
+        }
+        .price-ht {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 1.5rem 0;
+        }
+        .qty-btn {
+            background: var(--white);
+            border: 1px solid #cbd5e1;
+            color: var(--dark);
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .qty-btn:hover { background: #f1f5f9; }
+        .qty-input {
+            width: 80px;
+            height: 45px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
+            border-left: none;
+            border-right: none;
+            font-family: var(--font-body);
+        }
+        /* Masquer les flèches natives de l'input number */
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .qty-input[type=number] { -moz-appearance: textfield; }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        .reassurance-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .reassurance-item {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 500;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Pic <span class="text-red">à </span>Pente</a>
+            <div class="menu-toggle">☰</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="guide.html">Comment l'utiliser</a></li>
+                <li><a href="boutique.html" class="text-red">Boutique</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- En-tête de page standard -->
+        <section class="section bg-grey text-center">
+            <div class="container">
+                <h1>Boutique en ligne</h1>
+                <p style="max-width: 600px; margin: 0 auto;">L'innovation directement livrée sur vos chantiers. Bientôt disponible à la commande.</p>
+            </div>
+        </section>
+
+        <!-- FICHE PRODUIT BTP -->
+        <section class="section">
+            <div class="container grid-2" style="align-items: start; gap: 4rem;">
+                
+                <!-- Colonne Gauche : Visuels & Infos -->
+                <div>
+                    <!-- Visuel principal -->
+                    <div style="background: var(--grey-bg); border: 1px solid #e2e8f0; border-radius: 4px; padding: 2rem; display: flex; align-items: center; justify-content: center; aspect-ratio: 4/3; margin-bottom: 2rem;">
+                        <span style="color: var(--grey-text);">[ Visuel 3D Haute Définition du Produit ]</span>
+                    </div>
+
+                    <!-- Fiche Technique Rapide -->
+                    <h3 style="font-size: 1.2rem; border-bottom: 2px solid var(--red); padding-bottom: 0.5rem; display: inline-block;">Caractéristiques techniques</h3>
+                    <ul class="tech-list">
+                        <li><span>Application principale</span> <span>Chapes flottantes</span></li>
+                        <li><span>Épaisseur de chape</span> <span>De 5 à 15 cm</span></li>
+                        <li><span>Épaisseur isolant min.</span> <span>7 cm</span></li>
+                        <li><span>Matériau</span> <span>PLA</span></li>
+                        <li><span>Implantation conseillée</span> <span>Tous les 40 cm</span></li>
+                    </ul>
+                </div>
+
+                <!-- Colonne Droite : Achat & Tarification -->
+                <div>
+                    <h1 style="font-size: 2.2rem; margin-top: 0; margin-bottom: 0.5rem;">Pige de nivellement Pic à Pente</h1>
+                    <p style="color: #475569; font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.5;">
+                        La première pige sacrificielle à réglage micrométrique au laser. Ne bascule pas, supprime l'étape de rebouchage.
+                    </p>
+
+                    <!-- Module d'Achat Dynamique -->
+                    <div class="cart-box">
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <span class="price-huge" id="display-unit-price">5,00 €</span> <span class="price-ht">HT / pièce</span>
+                        </div>
+
+                        <label style="display: block; font-weight: 600; font-size: 0.9rem; color: #475569;">Quantité (le prix unitaire s'ajuste au volume)</label>
+                        
+                        <div class="qty-controls">
+                            <button type="button" class="qty-btn" onclick="updateQty(-10)">-</button>
+                            <input type="number" id="qty" class="qty-input" value="50" min="1" oninput="calculatePrice()">
+                            <button type="button" class="qty-btn" onclick="updateQty(10)">+</button>
+                        </div>
+
+                        <!-- Grille Dégressive Discrète -->
+                        <table class="discount-table" id="pricing-table">
+                            <thead>
+                                <tr>
+                                    <th>Volume commandé</th>
+                                    <th>Prix unitaire HT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="row-tier1">
+                                    <td>1 à 49 pièces</td>
+                                    <td>5,00 €</td>
+                                </tr>
+                                <tr id="row-tier2" class="row-active">
+                                    <td>50 à 199 pièces</td>
+                                    <td>4,50 €</td>
+                                </tr>
+                                <tr id="row-tier3">
+                                    <td>200 pièces et +</td>
+                                    <td>3,80 €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="total-row">
+                            <span style="font-size: 1.1rem; font-weight: 600; color: #475569;">Total estimé :</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--red);" id="display-total">225,00 € <span style="font-size: 1rem;">HT</span></span>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%; opacity: 0.7; cursor: not-allowed; padding: 1.2rem; font-size: 1.1rem; border-radius: 4px;">
+                            Pré-commandes bientôt ouvertes
+                        </button>
+                    </div>
+
+                    <!-- Réassurance BTP (Sans Emojis) -->
+                    <div class="reassurance-bar">
+                        <div class="reassurance-item">Expédition J+1</div>
+                        <div class="reassurance-item">Technologie validée</div>
+                        <div class="reassurance-item">Paiement Pro sécurisé</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ESPACE GROS CHANTIERS / PALETTES -->
+        <section class="section bg-grey" style="border-top: 1px solid #e2e8f0;">
+            <div class="container grid-2" style="align-items: center; gap: 4rem;">
+                <div>
+                    <span class="badge" style="background: var(--dark); color: white; border: none; margin-bottom: 1rem; border-radius: 4px;">Professionnels & Négoces</span>
+                    <h2 style="font-family: var(--font-head); font-size: 2rem; margin-bottom: 1rem;">Approvisionnement de chantiers réguliers</h2>
+                    <p style="font-size: 1.1rem; color: #4a5568; line-height: 1.6; margin-bottom: 2rem;">
+                        Vous êtes une entreprise générale, un chapiste professionnel ou un négoce de matériaux avec des besoins importants ? Contactez-nous pour échanger sur vos projets et découvrir ce qu'il est possible de mettre en place.
+                    </p>
+                    <a href="mailto:contact@picapente.com?subject=Demande de contact - Volumes et chantiers" class="btn btn-outline" style="border-color: var(--dark); color: var(--dark); border-radius: 4px;">
+                        Contacter notre équipe
+                    </a>
+                </div>
+                <div style="background: var(--white); padding: 3rem; border-radius: 4px; text-align: center; border: 1px solid #e2e8f0;">
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Prise de contact</h3>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Nous reviendrons vers vous dans les plus brefs délais.</p>
+                    <p style="font-weight: 600; font-size: 1.2rem; color: var(--red);">contact@picapente.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container grid-3">
+            <div>
+                <h3 style="color: var(--white);">Pic <span class="text-red">à </span>Pente</h3>
+                <p>Outil de nivellement innovant pour la construction.</p>
+            </div>
+            <div>
+                <h4 style="color: var(--white);">Navigation</h4>
+                <ul style="list-style:none;">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="guide.html">Mode d'emploi</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: var(--white);">Contact</h4>
+                <p>contact@picapente.com</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Pic à Pente. Technologie protégée.</p>
+        </div>
+    </footer>
+    
+    <!-- SCRIPT DE CALCUL DYNAMIQUE BTP -->
+    <script>
+        // Tarification HT
+        const tiers = [
+            { min: 1, max: 49, price: 5.00, rowId: 'row-tier1' },
+            { min: 50, max: 199, price: 4.50, rowId: 'row-tier2' },
+            { min: 200, max: Infinity, price: 3.80, rowId: 'row-tier3' }
+        ];
+
+        const qtyInput = document.getElementById('qty');
+        const displayUnitPrice = document.getElementById('display-unit-price');
+        const displayTotal = document.getElementById('display-total');
+
+        // Formater en monnaie FR (ex: 4,50 €)
+        function formatPrice(price) {
+            return price.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+
+        // Mettre à jour via les boutons + et -
+        function updateQty(change) {
+            let currentQty = parseInt(qtyInput.value) || 0;
+            let newQty = currentQty + change;
+            if (newQty < 1) newQty = 1;
+            qtyInput.value = newQty;
+            calculatePrice();
+        }
+
+        // Calculer les prix et mettre à jour l'interface
+        function calculatePrice() {
+            let qty = parseInt(qtyInput.value) || 1;
+            if (qty < 1) {
+                qty = 1;
+                qtyInput.value = 1;
+            }
+
+            let currentTier = tiers[0];
+
+            // Trouver le bon palier
+            for (let tier of tiers) {
+                document.getElementById(tier.rowId).classList.remove('row-active');
+                if (qty >= tier.min && qty <= tier.max) {
+                    currentTier = tier;
+                }
+            }
+
+            // Activer la ligne du tableau correspondante
+            document.getElementById(currentTier.rowId).classList.add('row-active');
+
+            // Calculs
+            let unitPrice = currentTier.price;
+            let total = qty * unitPrice;
+
+            // Mise à jour de l'affichage
+            displayUnitPrice.textContent = formatPrice(unitPrice);
+            displayTotal.innerHTML = formatPrice(total) + ' <span style="font-size: 1rem;">HT</span>';
+        }
+
+        // Init au chargement
+        document.addEventListener("DOMContentLoaded", calculatePrice);
+    </script>
+</body>
+</html>
