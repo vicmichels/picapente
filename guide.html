@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Styles spécifiques au visualiseur interactif -->
     <style>
         .helix-viewer {
             display: grid;
@@ -17,7 +16,6 @@
             margin-top: 2rem;
         }
 
-        /* Zone d'affichage 3D */
         .viewer-display {
             position: relative;
             background: #f8f9fa;
@@ -44,7 +42,6 @@
             z-index: 2;
         }
 
-        /* Panneau de contrôle */
         .viewer-controls {
             display: flex;
             flex-direction: column;
@@ -66,7 +63,6 @@
             border-color: #dcdcdc;
         }
 
-        /* Utilisation de la couleur rouge de ta charte */
         .phase-card.active {
             border-color: var(--red, #C82828);
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
@@ -100,7 +96,6 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Bouton Simulation */
         .sim-toggle {
             margin-top: 15px;
             background: #111;
@@ -128,7 +123,6 @@
             background: var(--red, #C82828);
         }
 
-        /* Responsive */
         @media (max-width: 900px) {
             .helix-viewer {
                 grid-template-columns: 1fr;
@@ -152,34 +146,27 @@
     </nav>
 
     <main>
-        <!-- En-tête de la page -->
         <section class="section bg-grey text-center">
             <div class="container">
                 <h1>Le Pic à Pente en action</h1>
-                <!-- Remplacement de coulage par pose -->
                 <p style="max-width: 600px; margin: 0 auto;">Découvrez étape par étape comment cet outil simplifie la pose de vos chapes et sécurise l'écoulement des eaux.</p>
             </div>
         </section>
 
-        <!-- Section du Visualiseur -->
         <section class="section">
             <div class="container">
-                
                 <div class="helix-viewer">
-                    <!-- Zone d'affichage de la maquette -->
                     <div class="viewer-display">
                         <img src="images/etape0.png" id="img-0" class="layer active" alt="Plaque d'isolant thermique au sol">
                         <img src="images/etape1.png" id="img-1" class="layer" alt="Isolant avec Pics à Pente vissés">
                         <img src="images/etape2.png" id="img-2" class="layer" alt="Mise en place de la trame de chape">
-                        <!-- Remplacement de coulée par tirée -->
                         <img src="images/etape3.png" id="img-3" class="layer" alt="Chape tirée et complètement finie">
                         <img src="images/etape4.png" id="img-4" class="layer" alt="Pose du revêtement final type carrelage">
                         
-                        <!-- La vidéo WebGL/Simulation par dessus -->
-                        <video src="images/simulation.mp4" id="sim-video" class="layer" muted loop playsinline></video>
+                        <!-- GIF de simulation -->
+                        <img src="images/simulation.gif" id="sim-gif" class="layer" alt="Simulation d'écoulement des eaux">
                     </div>
 
-                    <!-- Menu interactif des étapes -->
                     <div class="viewer-controls">
                         <div class="phase-card active" data-target="0">
                             <span class="phase-number">00</span>
@@ -201,7 +188,6 @@
 
                         <div class="phase-card" data-target="3">
                             <span class="phase-number">03</span>
-                            <!-- Remplacement de Coulage par Tirage -->
                             <h4>Tirage de la chape</h4>
                             <p>Vous tirez votre chape sèche en vous calant sur les têtes des Pics à Pente. Ils restent définitivement noyés dans la masse : zéro outil à retirer, aucun trou à reboucher.</p>
                         </div>
@@ -217,7 +203,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -248,53 +233,42 @@
 
     <script src="app.js"></script>
     
-    <!-- Script d'interaction du visualiseur -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const cards = document.querySelectorAll('.phase-card');
             const layers = document.querySelectorAll('.layer');
-            const video = document.getElementById('sim-video');
+            const simGif = document.getElementById('sim-gif');
             const simBtn = document.getElementById('sim-btn');
 
-            // Gestion du clic sur les cartes
             cards.forEach(card => {
                 card.addEventListener('click', () => {
                     const targetIndex = card.getAttribute('data-target');
 
-                    // Reset vidéo
-                    video.classList.remove('active');
-                    video.pause();
+                    simGif.classList.remove('active');
                     simBtn.classList.remove('active');
                     simBtn.innerHTML = `VOIR L'ÉCOULEMENT`;
 
-                    // Switch classes cartes
                     cards.forEach(c => c.classList.remove('active'));
                     card.classList.add('active');
 
-                    // Switch images
                     layers.forEach(l => l.classList.remove('active'));
                     document.getElementById(`img-${targetIndex}`).classList.add('active');
                 });
             });
 
-            // Gestion de la simulation
             simBtn.addEventListener('click', () => {
-                if (video.classList.contains('active')) {
-                    video.classList.remove('active');
-                    video.pause();
+                if (simGif.classList.contains('active')) {
+                    simGif.classList.remove('active');
                     simBtn.classList.remove('active');
                     simBtn.innerHTML = `VOIR L'ÉCOULEMENT`;
                 } else {
-                    // Activer la phase 4 automatiquement pour le fond
                     cards.forEach(c => c.classList.remove('active'));
-                    cards[4].classList.add('active'); // L'index 4 correspond au 5ème élément (étape finale)
+                    cards[4].classList.add('active');
                     
                     layers.forEach(l => l.classList.remove('active'));
                     document.getElementById('img-4').classList.add('active');
 
-                    // Lancer la vidéo
-                    video.classList.add('active');
-                    video.play();
+                    simGif.classList.add('active');
                     simBtn.classList.add('active');
                     simBtn.innerHTML = `ARRÊTER L'ÉCOULEMENT`;
                 }
